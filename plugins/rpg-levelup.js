@@ -1,44 +1,41 @@
-import { canLevelUp, xpRange } from '../lib/levelling.js';
-import { levelup } from '../lib/canvas.js';
+import { canLevelUp, xpRange } from '../lib/levelling.js'
+import { levelup } from '../lib/canvas.js'
 
-const handler = async (m, { conn }) => {
-  const name = conn.getName(m.sender);
-  const usertag = '@' + m.sender.split('@s.whatsapp.net')[0];
-  const user = global.db.data.users[m.sender];
-  if (!canLevelUp(user.level, user.exp, global.multiplier)) {
-    const { min, xp, max } = xpRange(user.level, global.multiplier);
-    const message = `
-🏰 *Gremio de Aventureros*
-*¡Bienvenido, ${usertag}!*
-
-*◉ Nivel actual:* ${user.level}
-*◉ Rango actual:* ${user.role}
-*◉ Puntos de Experiencia:* ${user.exp - min}/${xp}
-
-*—◉ Para ascender de nivel necesitas obtener ${max - user.exp} puntos de experiencia más. Sigue interactuando con el Bot!.*`.trim();
-    return conn.sendMessage(m.chat, {text: message, mentions: [m.sender]}, {quoted: m});
-  }
-  const before = user.level * 1;
-  while (canLevelUp(user.level, user.exp, global.multiplier)) user.level++;
-  if (before !== user.level) {
-    const levelUpMessage = `🎉 ¡Felicidades, ${name}! Has subido de nivel a ${user.level}`;
-    const levelUpDetails = `
-🚀 *Nuevo Nivel Alcanzado*
-
-*◉ Nivel anterior:* ${before}
-*◉ Nuevo nivel:* ${user.level}
-*◉ Rango actual:* ${user.role}
-
-*—◉ Continúa explorando y realizando misiones para alcanzar nuevas alturas en el Gremio de Aventureros. Sigue interactuando con el Bot!.*`.trim();
-    try {
-      const levelUpImage = await levelup(levelUpMessage, user.level);
-      conn.sendFile(m.chat, levelUpImage, 'levelup.jpg', levelUpDetails, m);
-    } catch (e) {
-      conn.sendMessage(m.chat, {text: levelUpDetails, mentions: [m.sender]}, {quoted: m});
+let handler = async (m, { conn }) => {
+	let name = conn.getName(m.sender)
+    let user = global.db.data.users[m.sender]
+    if (!canLevelUp(user.level, user.exp, global.multiplier)) {
+        let { min, xp, max } = xpRange(user.level, global.multiplier)
+        throw `╭「👑FELICIDADES」
+│➯─⊷ *LEVEL
+│➯Nombre : *${name}*
+│➯Nivel : *${user.level}*
+│➯XP : *${user.exp - min}/${xp}*
+╰───────────────╯
+You need *${max - user.exp}* of *XP* to level up`.trim()
     }
-  }
-};
-handler.help = ['levelup'];
-handler.tags = ['xp'];
-handler.command = ['nivel', 'lvl', 'levelup', 'level'];
-export default handler;
+    let before = user.level * 1
+    while (canLevelUp(user.level, user.exp, global.multiplier)) user.level++
+    if (before !== user.level) {
+        let teks = `🎊 Bien hecho ${conn.getName(m.sender)}    Nivel:`
+        let str = `╭「👑FELICIDADES」
+│➯─⊷ *LEVEL UP*
+│➯Nivel anterior : *${before}*
+│➯Nivel actual : *${user.level}*
+╰───────────────╯
+The more you interact with the bots, the higher your level will be_*`.trim()
+        try {
+            const img = await levelup(teks, user.level)
+            conn.sendFile(m.chat, img, 'levelup.jpg', str, m)
+        } catch (e) {
+            m.reply(str)
+        }
+    }
+}
+
+handler.help = ['levelup']
+handler.tags = ['xp']
+
+handler.command = ['nivel', 'lvl', 'levelup', 'level'] 
+handler.register = true
+export default handler

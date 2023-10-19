@@ -1,8 +1,8 @@
 let handler = async (m, { isPrems, conn }) => {
-let time = global.db.data.users[m.sender].lastcofre + 86400000 // 36000000 10 Horas //86400000 24 Horas
-if (new Date - global.db.data.users[m.sender].lastcofre < 86400000) throw `[❗𝐈𝐍𝐅𝐎❗] 𝚈𝙰 𝚁𝙴𝙲𝙻𝙰𝙼𝙰𝚂𝚃𝙴 𝚃𝚄 𝙲𝙾𝙵𝚁𝙴\𝚗𝚅𝚄𝙴𝙻𝚅𝙴 𝙴𝙽 *${msToTime(time - new Date())}* 𝙿𝙰𝚁𝙰 𝚅𝙾𝙻𝚅𝙴𝚁 𝙰 𝚁𝙴𝙲𝙻𝙰𝙼𝙰𝚁`
+let time = global.db.data.users[m.sender].lastcofre + 0 // 36000000 10 Horas //86400000 24 Horas
+if (new Date - global.db.data.users[m.sender].lastcofre < 0) throw `[❗𝐈𝐍𝐅𝐎❗] 𝚈𝙰 𝚁𝙴𝙲𝙻𝙰𝙼𝙰𝚂𝚃𝙴 𝚃𝚄 𝙲𝙾𝙵𝚁𝙴\𝚗𝚅𝚄𝙴𝙻𝚅𝙴 𝙴𝙽 *${msToTime(time - new Date())}* 𝙿𝙰𝚁𝙰 𝚅𝙾𝙻𝚅𝙴𝚁 𝙰 𝚁𝙴𝙲𝙻𝙰𝙼𝙰𝚁`
 
-let img = 'https://img.freepik.com/vector-gratis/cofre-monedas-oro-piedras-preciosas-cristales-trofeo_107791-7769.jpg?w=2000'
+let img = 'https://cdn.discordapp.com/attachments/1009154096588140605/1157519423708614666/266e6004-6fa7-46cb-80db-c447a06f25d0.png?ex=6518e778&is=651795f8&hm=b5e0e6a1f1eaf029af44976033a245ed837f32674a3f903373ca3d84ce6f7daf&'
 let dia = Math.floor(Math.random() * 30)
 let tok = Math.floor(Math.random() * 10)
 let hadesb = Math.floor(Math.random() * 4000)
@@ -13,14 +13,7 @@ let expp = Math.floor(Math.random() * 5000)
   global.db.data.users[m.sender].joincount += tok
   global.db.data.users[m.sender].exp += expp
   
-let texto = `╭「FELICIDADES」
-│🛒 𝙾𝙱𝚃𝙸𝙴𝙽𝙴𝚂 𝚄𝙽 𝙲𝙾𝙵𝚁𝙴
-│┈┈┈┈┈┈┈┈┈┈┈┈┈
-│➯🍁*${dia}➟Diamantes* 💎
-│➯🌱*${tok}➟Tokens* 🪙
-│➯✴️${hadesb}➟Polvora-coins
-│➯🌀*${expp}➟Exp* ⚡
-╰───────────────╯`
+let texto = `MAPA ALPES FREE FIRE 2023`
 
 const fkontak = {
 	"key": {
@@ -42,7 +35,7 @@ global.db.data.users[m.sender].lastcofre = new Date * 1
 }
 handler.help = ['daily']
 handler.tags = ['xp']
-handler.command = ['coffer', 'cofre', 'abrircofre', 'cofreabrir'] 
+handler.command = ['alpes', 'mapaalpes', 'mapaa'] 
 handler.register = true
 export default handler
 
